@@ -30,7 +30,6 @@ class CaixaDaLanchonete {
             }
         }
         
-
         if (temQueijo && !this.verificarSanduiche(itens)) {
             return "Item extra não pode ser pedido sem o principal";
         }
