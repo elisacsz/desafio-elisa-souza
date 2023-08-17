@@ -28,9 +28,21 @@ class CaixaDaLanchonete {
                 temQueijo = true;
                 break;
             }
+        }       
+
+        let temChantily = false;
+        for (const item of itens) {
+            const [codigoItem, _] = item.split(',');
+            if (codigoItem === "chantily") {
+                temChantily = true;
+            }
         }
-        
+
         if (temQueijo && !this.verificarSanduiche(itens)) {
+            return "Item extra não pode ser pedido sem o principal";
+        }
+
+        if (temChantily && !this.verificarCafe(itens)) {
             return "Item extra não pode ser pedido sem o principal";
         }
 
@@ -62,6 +74,16 @@ class CaixaDaLanchonete {
         for (const item of itens) {
             const [codigoItem, _] = item.split(',');
             if (codigoItem === "sanduiche") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    verificarCafe(itens) {
+        for (const item of itens) {
+            const [codigoItem, _] = item.split(',');
+            if (codigoItem === "cafe") {
                 return true;
             }
         }
