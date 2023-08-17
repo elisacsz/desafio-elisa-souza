@@ -20,7 +20,21 @@ class CaixaDaLanchonete {
         if (itens.length === 0) {
             return "Não há itens no carrinho de compra!";
         } 
+
+        let temQueijo = false;
+        for (const item of itens) {
+            const [codigoItem, _] = item.split(',');
+            if (codigoItem === "queijo") {
+                temQueijo = true;
+                break;
+            }
+        }
         
+
+        if (temQueijo && !this.verificarSanduiche(itens)) {
+            return "Item extra não pode ser pedido sem o principal";
+        }
+
         let valorTotal = 0;
     
         for (const item of itens) {
@@ -32,7 +46,7 @@ class CaixaDaLanchonete {
             } else if (quantidade === 0) {
                 return "Quantidade inválida!";
             }
-            
+
             valorTotal += this.cardapio[codigoItem].preco * quantidade;            
         }     
                          
@@ -44,7 +58,16 @@ class CaixaDaLanchonete {
 
         return `R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
     }
+
+    verificarSanduiche(itens) {
+        for (const item of itens) {
+            const [codigoItem, _] = item.split(',');
+            if (codigoItem === "sanduiche") {
+                return true;
+            }
+        }
+        return false;
+    }
 }
-    
 
 export { CaixaDaLanchonete };
